@@ -77,14 +77,48 @@ namespace comp110_worksheet_7
 		// Get the path and size (in bytes) of the smallest file below the given directory.
 		public static Tuple<string, long> GetSmallestFile(string directory)
 		{
-			throw new NotImplementedException();
+            // Add files to the array. *.* so only files will be added and not folders.
+            FileArr = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+
+            // Variables to tuple and return.
+            string fileName = FileArr[0];
+            long fileSize = GetFileSize(fileName);
+
+            // Check each item in the array and find largest.
+            foreach(string file in FileArr)
+            {
+                if (GetFileSize(file) < fileSize)
+                {
+                    fileName = file;
+                    fileSize = GetFileSize(file);
+                }
+            }
+            
+            return new Tuple<string, long>(fileName, fileSize);
 		}
 
 		// Get the path and size (in bytes) of the largest file below the given directory.
 		public static Tuple<string, long> GetLargestFile(string directory)
 		{
-			throw new NotImplementedException();
-		}
+            // Add files to the array. *.* so only files will be added and not folders.
+            FileArr = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories);
+
+            // Variables to tuple and return.
+            string fileName = FileArr[0];
+            long fileSize = GetFileSize(fileName);
+
+            // Check each item in the array and find largest.
+            foreach (string file in FileArr)
+            {
+                if (GetFileSize(file) > fileSize)
+                {
+                    fileName = file;
+                    fileSize = GetFileSize(file);
+                }
+            }
+
+            return new Tuple<string, long>(fileName, fileSize);
+        }
 
 		// Get all files whose size is equal to the given value (in bytes) below the given directory.
 		public static IEnumerable<string> GetFilesOfSize(string directory, long size)
